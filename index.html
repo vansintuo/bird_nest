@@ -453,14 +453,26 @@
       overflow: hidden;
     }
 
-    .hero::before {
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-scrim {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 620px 500px at 88% 18%, rgba(216, 183, 107, 0.14), transparent 60%),
-        radial-gradient(ellipse 500px 400px at 6% 92%, rgba(216, 183, 107, 0.08), transparent 60%);
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.08) 35%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0.45) 100%);
       pointer-events: none;
+    }
+
+    .hero::before {
+      display: none;
     }
 
     .hero-grid {
@@ -469,6 +481,7 @@
       gap: 64px;
       align-items: center;
       position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
@@ -477,19 +490,23 @@
       /* color: var(--paper); */
       color: #ffffff;
       margin-bottom: 26px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
     }
 
     .hero h1 em {
       font-style: italic;
       font-weight: 400;
-      color: #ffffff;
+      /* color: var(--gold-light); */
+      color: #ffc668;
     }
 
     .hero p.lede {
       font-size: 18px;
-      color: rgba(241, 236, 221, 0.82);
+      /* color: rgba(241, 236, 221, 0.92); */
+      color: #ffffff;
       max-width: 46ch;
       margin-bottom: 38px;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
     }
 
     .hero-actions {
@@ -522,13 +539,11 @@
     .hero-stat .num {
       font-family: var(--font-display);
       font-size: 30px;
-      /* color: var(--gold-light); */
       color: #ffffff;
     }
 
     .hero-stat .label {
       font-size: 13px;
-      /* color: rgba(241, 236, 221, 0.68); */
       color: #ffffff;
       margin-top: 2px;
     }
@@ -537,7 +552,7 @@
       opacity: 0;
       transform: translateY(16px);
       animation: heroIn .9s ease forwards;
-      color: #ffffff;
+       color: #ffffff;
     }
 
     .hero-load:nth-child(1) {
@@ -600,7 +615,6 @@
       gap: 12px;
       font-size: 14.5px;
       /* color: var(--ink); */
-      color: #000000;
       flex: 1 1 220px;
     }
 
@@ -1065,7 +1079,6 @@
     footer h5 {
       font-family: var(--font-body);
       font-weight: 600;
-      /* color: var(--paper); */
       color: #ffffff;
       font-size: 14.5px;
       margin-bottom: 20px;
@@ -1147,12 +1160,22 @@
   </header>
 
   <section class="hero" id="top">
+    <!--
+    HOW TO ADD YOUR OWN VIDEO:
+    1) Place your video file next to this HTML file (same folder), e.g. "hero-video.mp4".
+    2) Change the <source src="..."> below to that filename (or a full URL if it's hosted online).
+    3) A poster image shows while the video loads — replace poster="" with an image path if you have one.
+    Keep the video muted (required for autoplay in browsers) and under ~10MB for fast loading.
+  -->
+    <video class="hero-video" autoplay muted loop playsinline poster="">
+      <source src="birdnest.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim"></div>
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow hero-load">Wild-harvested in the limestone caves of Southeast Asia</div>
         <h1 class="hero-load">Bird's nest,<br>kept <em>honest.</em></h1>
-        <p class="lede hero-load" style="color: #ffffff;">No bleach, no additives, no shortcuts. Every nest is
-          hand-picked by swiftlet farmers
+        <p class="lede hero-load">No bleach, no additives, no shortcuts. Every nest is hand-picked by swiftlet farmers
           we know by name, cleaned by hand, and shipped within days of harvest — so what reaches your bowl is exactly
           what nature made.</p>
         <div class="hero-actions hero-load">
@@ -1174,18 +1197,7 @@
           </div>
         </div>
       </div>
-      <div class="hero-art">
-        <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="210" cy="210" r="200" stroke="#D8B76B" stroke-opacity="0.28" stroke-width="1" />
-          <circle cx="210" cy="210" r="160" stroke="#D8B76B" stroke-opacity="0.4" stroke-width="1" />
-          <g transform="translate(80,90)">
-            <path
-              d="M40 130C20 110 15 75 45 55C40 80 45 95 60 105C55 75 70 50 100 40C90 60 92 78 105 90C110 60 135 40 165 35C150 55 148 75 160 92C175 78 190 78 205 88C185 95 172 108 168 125C185 118 200 122 210 135C190 132 175 140 168 155C182 155 193 163 198 178C180 170 165 172 155 182C165 188 170 200 168 212C155 202 143 200 132 206C137 216 135 228 126 236C120 224 110 218 98 218C100 230 94 240 82 244C82 232 75 224 63 222C60 232 50 238 38 236C44 226 42 216 33 210C24 216 13 214 8 205C18 202 22 193 18 183C8 186 -1 180 -3 170C7 170 13 162 12 152C2 152 -5 144 -5 134C5 136 12 130 12 120C4 118 0 110 2 100C10 104 16 100 18 92C10 88 8 80 12 72C18 76 24 74 26 66C40 90 40 130 40 130Z"
-              fill="#D8B76B" fill-opacity="0.9" />
-          </g>
-          <ellipse cx="210" cy="330" rx="120" ry="10" fill="#0B0F0D" fill-opacity="0.25" />
-        </svg>
-      </div>
+
     </div>
   </section>
 
@@ -1398,7 +1410,6 @@
           <div class="qg-card" aria-hidden="true">
             <div class="frame">
               <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-
                 <defs>
                   <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stop-color="#6E8577" />
@@ -1417,7 +1428,6 @@
 
               <div class="frame-title">The Cave</div>
             </div>
-
             <div class="caption">
               <div class="cap-name">Battambang, Site No. 3</div>
 
@@ -1433,7 +1443,6 @@
           <div class="qg-card" aria-hidden="true">
             <div class="frame">
               <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-
                 <defs>
                   <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stop-color="#6E8577" />
@@ -1447,15 +1456,11 @@
 
                 <!-- Dark overlay -->
                 <rect width="300" height="90" fill="#000" opacity="0.18" />
-
               </svg>
-
               <div class="frame-title">The Cave</div>
             </div>
-
             <div class="caption">
               <div class="cap-name">Battambang, Site No. 3</div>
-
               <div class="cap-stat">
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke="currentColor" stroke-width="1.6" />
@@ -1468,7 +1473,6 @@
           <div class="qg-card" aria-hidden="true">
             <div class="frame">
               <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-
                 <defs>
                   <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stop-color="#6E8577" />
@@ -1484,18 +1488,16 @@
                 <rect width="300" height="90" fill="#000" opacity="0.18" />
 
               </svg>
-
-              <div class="frame-title">The Cave</div>
+              <div class="frame-title">Hand-Cleaned</div>
             </div>
-
             <div class="caption">
-              <div class="cap-name">Battambang, Site No. 3</div>
-
+              <div class="cap-name">Feather by feather</div>
               <div class="cap-stat">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+                  <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" />
                 </svg>
-                Harvested since 1978
+                About 6 hours per nest
               </div>
             </div>
           </div>
@@ -1503,7 +1505,6 @@
           <div class="qg-card" aria-hidden="true">
             <div class="frame">
               <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-
                 <defs>
                   <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stop-color="#6E8577" />
@@ -1520,18 +1521,15 @@
                 <rect width="300" height="90" fill="#000" opacity="0.18" />
 
               </svg>
-
-              <div class="frame-title">The Cave</div>
+              <div class="frame-title">The Queen's Nest</div>
             </div>
-
             <div class="caption">
-              <div class="cap-name">Battambang, Site No. 3</div>
-
+              <div class="cap-name">Top 0.1% grade</div>
               <div class="cap-stat">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke="currentColor" stroke-width="1.6" />
+                  <path d="M12 3l7 4v5c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4Z" stroke="currentColor" stroke-width="1.6" />
                 </svg>
-                Harvested since 1978
+                ~200 nests per season
               </div>
             </div>
           </div>
@@ -1539,11 +1537,10 @@
           <div class="qg-card" aria-hidden="true">
             <div class="frame">
               <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-
                 <defs>
-                  <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#6E8577" />
-                    <stop offset="1" stop-color="#1B2420" />
+                  <linearGradient id="g4b" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#9B3B30" />
+                    <stop offset="1" stop-color="#5C231C" />
                   </linearGradient>
                 </defs>
 
@@ -1556,18 +1553,16 @@
                 <rect width="300" height="90" fill="#000" opacity="0.18" />
 
               </svg>
-
-              <div class="frame-title">The Cave</div>
+              <div class="frame-title">Individually Sealed</div>
             </div>
-
             <div class="caption">
-              <div class="cap-name">Battambang, Site No. 3</div>
-
+              <div class="cap-name">Numbered &amp; dated</div>
               <div class="cap-stat">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke="currentColor" stroke-width="1.6" />
+                  <rect x="4" y="8" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+                  <path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.6" />
                 </svg>
-                Harvested since 1978
+                Wax-sealed on arrival
               </div>
             </div>
           </div>
