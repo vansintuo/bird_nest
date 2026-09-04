@@ -452,13 +452,112 @@
       overflow: hidden;
     }
 
-    .hero-video {
+    .hero-slides {
       position: absolute;
       inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: heroSlideShow 20s ease-in-out infinite;
+    }
+
+    .hero-slide svg {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      z-index: 0;
+      display: block;
+      animation: heroSlideZoom 20s ease-in-out infinite;
+    }
+
+    .hero-slide:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .hero-slide:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    .hero-slide:nth-child(3) {
+      animation-delay: 10s;
+    }
+
+    .hero-slide:nth-child(4) {
+      animation-delay: 15s;
+    }
+
+    .hero-slide:nth-child(1) svg {
+      animation-delay: 0s;
+    }
+
+    .hero-slide:nth-child(2) svg {
+      animation-delay: 5s;
+    }
+
+    .hero-slide:nth-child(3) svg {
+      animation-delay: 10s;
+    }
+
+    .hero-slide:nth-child(4) svg {
+      animation-delay: 15s;
+    }
+
+    @keyframes heroSlideShow {
+      0% {
+        opacity: 0;
+        transform: translateX(24px);
+      }
+
+      3% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      22% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      25% {
+        opacity: 0;
+        transform: translateX(-24px);
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes heroSlideZoom {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(1.06);
+      }
+
+      100% {
+        transform: scale(1.06);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-slide {
+        animation: none;
+        opacity: 0;
+      }
+
+      .hero-slide:first-child {
+        opacity: 1;
+      }
+
+      .hero-slide svg {
+        animation: none;
+      }
     }
 
     .hero-scrim {
@@ -551,7 +650,7 @@
       opacity: 0;
       transform: translateY(16px);
       animation: heroIn .9s ease forwards;
-       color: #ffffff;
+      color: #ffffff;
     }
 
     .hero-load:nth-child(1) {
@@ -1159,16 +1258,74 @@
   </header>
 
   <section class="hero" id="top">
-    <!--
-    HOW TO ADD YOUR OWN VIDEO:
-    1) Place your video file next to this HTML file (same folder), e.g. "hero-video.mp4".
-    2) Change the <source src="..."> below to that filename (or a full URL if it's hosted online).
-    3) A poster image shows while the video loads — replace poster="" with an image path if you have one.
-    Keep the video muted (required for autoplay in browsers) and under ~10MB for fast loading.
-  -->
-    <video class="hero-video" autoplay muted loop playsinline poster="">
-      <source src="birdnest.mp4" type="video/mp4">
-    </video>
+    <div class="hero-slides">
+      <div class="hero-slide">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hs1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#6E8577" />
+              <stop offset="1" stop-color="#1B2420" />
+            </linearGradient>
+          </defs>
+          <!-- Image -->
+          <image href="https://img06.weeecdn.com/item/image/831/762/66F58B475328B9BE.jpeg" x="0" y="0" width="300"
+            height="300" preserveAspectRatio="xMidYMid slice" />
+
+          <!-- Dark overlay -->
+          <rect width="300" height="90" fill="#000" opacity="0.18" />
+        </svg>
+      </div>
+      <div class="hero-slide">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hs2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E7E0CB" />
+              <stop offset="1" stop-color="#B08D3E" />
+            </linearGradient>
+          </defs>
+          <!-- Image -->
+          <image href="https://img.myshopline.com/image/store/1654672988793/1-77.png?w=1080&h=1080" x="0" y="0"
+            width="300" height="300" preserveAspectRatio="xMidYMid slice" />
+
+          <!-- Dark overlay -->
+          <rect width="300" height="90" fill="#000" opacity="0.18" />
+        </svg>
+      </div>
+      <div class="hero-slide">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hs3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2F4A3C" />
+              <stop offset="1" stop-color="#141A16" />
+            </linearGradient>
+          </defs>
+          <!-- Image -->
+          <image
+            href="https://static.wixstatic.com/media/aee2a8_9c2bda02e2314826af6d0a03d450f34f~mv2.jpg/v1/fill/w_2500,h_1666,al_c/aee2a8_9c2bda02e2314826af6d0a03d450f34f~mv2.jpg"
+            x="0" y="0" width="300" height="300" preserveAspectRatio="xMidYMid slice" />
+
+          <!-- Dark overlay -->
+          <rect width="300" height="90" fill="#000" opacity="0.18" />
+        </svg>
+      </div>
+      <div class="hero-slide">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hs4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9B3B30" />
+              <stop offset="1" stop-color="#5C231C" />
+            </linearGradient>
+          </defs>
+          <!-- Image -->
+          <image
+            href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm93rSXa-rI3fdvqta6mYv9VBdajpGCzeOZk9E_sM6-V733LFEk2eRGAx6&s=10"
+            x="0" y="0" width="300" height="300" preserveAspectRatio="xMidYMid slice" />
+
+          <!-- Dark overlay -->
+          <rect width="300" height="90" fill="#000" opacity="0.18" />
+        </svg>
+      </div>
+    </div>
     <div class="hero-scrim"></div>
     <div class="wrap hero-grid">
       <div>
